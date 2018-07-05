@@ -38,9 +38,14 @@ namespace JsonSettings
 
 		private string ResolveFilename(string fileName)
 		{
-			return (fileName.StartsWith("~")) ?
+			string result = (fileName.StartsWith("~")) ?
 				Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), CompanyName, ProductName, fileName.Substring(1)) :
 				fileName;
+
+			string folder = Path.GetDirectoryName(result);
+			if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+
+			return result;
 		}
 
 		public void Save()

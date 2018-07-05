@@ -46,16 +46,22 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllTests.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\JsonSettings\JsonSettings.csproj">
+      <Project>{3AC602FC-A7D4-46EB-9945-2A9E57F0E8D5}</Project>
+      <Name>JsonSettings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

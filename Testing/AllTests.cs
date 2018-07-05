@@ -1,5 +1,7 @@
 ﻿using System;
+using JsonSettings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Testing.Models;
 
 namespace Testing
 {
@@ -9,6 +11,7 @@ namespace Testing
 		[TestMethod]
 		public void TestMethod1()
 		{
+			var settings = JsonSettingsBase.Load<Settings>("~\\MySettings.json");
 		}
 	}
 }
