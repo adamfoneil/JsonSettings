@@ -9,9 +9,9 @@ namespace JsonSettings
 		[JsonIgnore]
 		public string Filename { get; set; }
 		[JsonIgnore]
-		public string CompanyName { get; set; }
+		public abstract string CompanyName { get; }
 		[JsonIgnore]
-		public string ProductName { get; set; }
+		public abstract string ProductName { get; }
 
 		public static T Load<T>(string fileName) where T : JsonSettingsBase, new()
 		{
