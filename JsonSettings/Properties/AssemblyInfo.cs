@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("JsonSettings")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Json Application Settings")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Adam O'Neil Software")]
 [assembly: AssemblyProduct("JsonSettings")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © Adam O'Neil Software 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3bc395b9-df07-4237-8b59-5b8681569f4e")]
+[assembly: Guid("3ac602fc-a7d4-46eb-9945-2a9e57f0e8d5")]
 
 // Version information for an assembly consists of the following four values:
 //
