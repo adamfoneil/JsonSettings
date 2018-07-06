@@ -8,7 +8,7 @@ Nuget package: **AoJsonSettings**
 
 ## How to Use
 
-1. Create a class for your application settings based on [JsonSettingsBase](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings/JsonSettingsBase.cs). Override the `Scope`, `Filename`, `CompanyName` and `ProductName` properties. These allow the settings class to derive a path to the saved settings via the [GetFullPath](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings/JsonSettingsBase.cs#L50) method.
+1. Create a class for your application settings based on [JsonSettingsBase](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings/JsonSettingsBase.cs). Override the `Scope`, `Filename`, `CompanyName` and `ProductName` properties. These allow the settings class to derive a path to the saved settings via the [GetFullPath](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings/JsonSettingsBase.cs#L62) method.
 
 2. If you need to encrypt a string property, add the [[JsonProtect]](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings/JsonProtectAttribute.cs) attribute, setting in addition to the `DataProtectionScope` value, whose settings are `Machine` and `User` I think. Props to this [SO answer](https://stackoverflow.com/a/29240043/2023653) on implementing the custom attribute that does this.
 
