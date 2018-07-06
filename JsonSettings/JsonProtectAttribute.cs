@@ -57,9 +57,13 @@ namespace JsonSettings
 		public object GetValue(object target)
 		{
 			string clearText = PropertyInfo.GetValue(target) as string;
-			byte[] clearBytes = Encoding.UTF8.GetBytes(clearText);
-			byte[] encryptedBytes = ProtectedData.Protect(clearBytes, null, Scope);
-			return Convert.ToBase64String(encryptedBytes);			
+			if (!string.IsNullOrEmpty(clearText))
+			{
+				byte[] clearBytes = Encoding.UTF8.GetBytes(clearText);
+				byte[] encryptedBytes = ProtectedData.Protect(clearBytes, null, Scope);
+				return Convert.ToBase64String(encryptedBytes);
+			}
+			return null;
 		}
 
 		/// <summary>
@@ -68,9 +72,12 @@ namespace JsonSettings
 		public void SetValue(object target, object value)
 		{
 			string encryptedText = value as string;
-			byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
-			byte[] clearBytes = ProtectedData.Unprotect(encryptedBytes, null, Scope);
-			PropertyInfo.SetValue(target, Encoding.UTF8.GetString(clearBytes));
+			if (!string.IsNullOrEmpty(encryptedText))
+			{
+				byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
+				byte[] clearBytes = ProtectedData.Unprotect(encryptedBytes, null, Scope);
+				PropertyInfo.SetValue(target, Encoding.UTF8.GetString(clearBytes));
+			}
 		}
 	}
 }
