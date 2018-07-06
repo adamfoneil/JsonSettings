@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
-using JsonSettings;
+﻿using JsonSettings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System.IO;
 using Testing.Models;
 
 namespace Testing
@@ -15,7 +14,15 @@ namespace Testing
 		{
 			var settings = JsonSettingsBase.Load<AppSettings>();
 			settings.Save();
-			Assert.IsTrue(settings.GetFullPath().EndsWith(@"\AppData\Local\Adam O'Neil Software\My Sample App\Settings.json"));
+			Assert.IsTrue(settings.GetFullPath().EndsWith(@"\AppData\Local\Adam O'Neil Software\My Sample App\AppSettings.json"));
+		}
+
+		[TestMethod]
+		public void CreateAndSaveUserScope()
+		{
+			var settings = JsonSettingsBase.Load<UserSettings>();
+			settings.Save();
+			Assert.IsTrue(settings.GetFullPath().EndsWith(@"\Adam O'Neil Software\My Sample App\UserSettings.json"));
 		}
 
 		[TestMethod]
@@ -38,6 +45,7 @@ namespace Testing
 				Assert.IsTrue(!settings.SensitiveValue.Equals(test.SensitiveValue) && !string.IsNullOrEmpty(test.SensitiveValue));
 			}
 
+			// when we load from disk, the sensitive value is what we started with
 			settings = JsonSettingsBase.Load<AppSettings>();
 			Assert.IsTrue(settings.SensitiveValue.Equals(testValue));
 		}

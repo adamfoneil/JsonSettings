@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="AllTests.cs" />
     <Compile Include="Models\AppSettings.cs" />
+    <Compile Include="Models\UserSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
