@@ -13,12 +13,24 @@ namespace JsonSettings
 
 	public abstract class JsonSettingsBase
 	{
+		/// <summary>
+		/// Indicates whether the settings file is scoped to the user or application
+		/// </summary>
 		[JsonIgnore]
 		public abstract Scope Scope { get; }
+		/// <summary>
+		/// Override this to set Company Name associated with your product's settings file. This will become part of the save location for the settings file
+		/// </summary>
 		[JsonIgnore]
 		public abstract string CompanyName { get; }
+		/// <summary>
+		/// Override this to set Product Name associated with your product's settings file. This will become part of the save location for the settings file
+		/// </summary>
 		[JsonIgnore]
 		public abstract string ProductName { get; }
+		/// <summary>
+		/// Set this to the filename (with no path information) for the settings file
+		/// </summary>
 		[JsonIgnore]
 		public abstract string Filename { get; }
 
