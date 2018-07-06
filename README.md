@@ -4,7 +4,7 @@
 
 This is sort of an update of my [AoOptions](https://github.com/adamosoftware/AoOptions) project, moving it from XML to Json, and removing the WinForms dependency. It was also important that I support a DPAPI encryption on properties, since the intended use case for this is to store sensitive things like database connection strings and other credentials.
 
-I'll have a Nuget package and some tests soon. At the moment I'm still looking over the implementation and considering what tests to write.
+Nuget package: **AoJsonSettings**
 
 ## How to Use
 
