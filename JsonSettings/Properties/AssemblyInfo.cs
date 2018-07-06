@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("JsonSettings")]
-[assembly: AssemblyDescription("Json Application Settings")]
+[assembly: AssemblyTitle("Json Settings")]
+[assembly: AssemblyDescription("Json App and User Settings")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Adam O'Neil Software")]
 [assembly: AssemblyProduct("JsonSettings")]

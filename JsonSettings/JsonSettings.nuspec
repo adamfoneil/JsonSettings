@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>AoJsonSettings</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>    
+    <projectUrl>https://github.com/adamosoftware/JsonSettings</projectUrl>    
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>    
+    <copyright>Copyright 2018 Adam O'Neil</copyright>
+    <tags>json settings</tags>
+  </metadata>
+</package>
