@@ -6,7 +6,8 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>    
-    <projectUrl>https://github.com/adamosoftware/JsonSettings</projectUrl>    
+    <projectUrl>https://github.com/adamosoftware/JsonSettings</projectUrl>
+    <licenseUrl>https://github.com/adamosoftware/JsonSettings/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>    
     <copyright>Copyright 2018 Adam O'Neil</copyright>
