@@ -38,22 +38,10 @@ namespace JsonSettings
 		{
 			T result = new T();
 
-			string fileName = result.GetFullPath();
+			string fileName = result.GetFullPath();			
 			if (File.Exists(fileName))
 			{
-				using (StreamReader reader = File.OpenText(fileName))
-				{
-					JsonSerializerSettings settings = new JsonSerializerSettings()
-					{						
-						ContractResolver = new DataProtectionResolver()
-					};
-
-					string json = reader.ReadToEnd();
-					if (!json.Equals(string.Empty))
-					{
-						result = JsonConvert.DeserializeObject<T>(json, settings);
-					}
-				}
+				result = JsonFile.Load<T>(fileName);
 			}
 
 			return result;
@@ -76,17 +64,8 @@ namespace JsonSettings
 		}
 
 		public void Save()
-		{			
-			using (StreamWriter writer = File.CreateText(GetFullPath()))
-			{
-				JsonSerializerSettings settings = new JsonSerializerSettings()
-				{
-					Formatting = Formatting.Indented,
-					ContractResolver = new DataProtectionResolver()
-				};
-				string json = JsonConvert.SerializeObject(this, settings);
-				writer.Write(json);
-			}
+		{
+			JsonFile.Save(GetFullPath(), this);
 		}
 	}
 }
