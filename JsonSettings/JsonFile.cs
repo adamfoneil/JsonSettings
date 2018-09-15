@@ -23,6 +23,23 @@ namespace JsonSettings
 			}
 		}
 
+		public async static Task SaveAsync<T>(string fileName, T @object)
+		{
+			string folder = Path.GetDirectoryName(fileName);
+			if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+
+			using (StreamWriter writer = File.CreateText(fileName))
+			{
+				JsonSerializerSettings settings = new JsonSerializerSettings()
+				{
+					Formatting = Formatting.Indented,
+					ContractResolver = new DataProtectionResolver()
+				};
+				string json = JsonConvert.SerializeObject(@object, settings);
+				await writer.WriteAsync(json);
+			}
+		}
+
 		public static T Load<T>(string fileName)
 		{
 			using (StreamReader reader = File.OpenText(fileName))
