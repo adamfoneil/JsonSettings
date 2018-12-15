@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="JsonFile.cs" />
     <Compile Include="JsonProtectAttribute.cs" />
+    <Compile Include="JsonConfig.cs" />
     <Compile Include="JsonSettingsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

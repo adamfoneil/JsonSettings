@@ -49,5 +49,24 @@ namespace Testing
 			settings = JsonSettingsBase.Load<AppSettings>();
 			Assert.IsTrue(settings.SensitiveValue.Equals(testValue));
 		}
+
+		[TestMethod]
+		public void GetValueByPath()
+		{
+			string json = @"{
+			  ""ConnectionStrings"": {
+				""DefaultConnection"": ""Data Source=(localdb)\\mssqllocaldb;Database=CloudDoc;Integrated Security=true""
+			  },
+			  ""Logging"": {
+				""LogLevel"": {
+				  ""Default"": ""Warning""
+				}
+			  },
+			  ""AllowedHosts"": ""*""
+			}";
+			string connectionString = JsonConfig.GetValueFromJson<string>(json, "ConnectionStrings.DefaultConnection");
+			Assert.IsTrue(connectionString.Equals("Data Source=(localdb)\\mssqllocaldb;Database=CloudDoc;Integrated Security=true"));
+
+		}
 	}
 }
