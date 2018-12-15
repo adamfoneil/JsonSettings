@@ -39,3 +39,7 @@ public class AppSettings : JsonSettingsBase
     public string SensitiveValue { get; set; }
 }
 ```
+
+## A Simpler Use
+
+If you don't need the built-in settings file handling logic, you can use the [JsonFile](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings/JsonFile.cs) static class with its `Load`, `Save` (and `LoadAsync`, `SaveAsync`) methods to make it easy to save any json data to a file. The [JsonProtect] attribute still works in this usage.
