@@ -52,17 +52,11 @@ namespace JsonSettings
 
 		/// <summary>
 		/// Called during deserialization to decrypt a property value
-		/// </summary>
-		/// <param name="target"></param>		
+		/// </summary>		
 		public object GetValue(object target)
 		{
 			string clearText = PropertyInfo.GetValue(target) as string;
-			if (!string.IsNullOrEmpty(clearText))
-			{
-				byte[] clearBytes = Encoding.UTF8.GetBytes(clearText);
-				byte[] encryptedBytes = ProtectedData.Protect(clearBytes, null, Scope);
-				return Convert.ToBase64String(encryptedBytes);
-			}
+			if (!string.IsNullOrEmpty(clearText)) return Encryption.Encrypt(clearText, Scope);
 			return null;
 		}
 
@@ -74,9 +68,7 @@ namespace JsonSettings
 			string encryptedText = value as string;
 			if (!string.IsNullOrEmpty(encryptedText))
 			{
-				byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
-				byte[] clearBytes = ProtectedData.Unprotect(encryptedBytes, null, Scope);
-				PropertyInfo.SetValue(target, Encoding.UTF8.GetString(clearBytes));
+				PropertyInfo.SetValue(target, Encryption.Decrypt(encryptedText, Scope));
 			}
 		}
 	}

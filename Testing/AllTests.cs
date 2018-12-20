@@ -1,6 +1,7 @@
 ﻿using JsonSettings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using Testing.Models;
 
@@ -66,7 +67,21 @@ namespace Testing
 			}";
 			string connectionString = JsonConfig.GetValueFromJson<string>(json, "ConnectionStrings.DefaultConnection");
 			Assert.IsTrue(connectionString.Equals("Data Source=(localdb)\\mssqllocaldb;Database=CloudDoc;Integrated Security=true"));
+		}
 
+		[TestMethod]
+		public void SecureDictionaryShouldSaveAndLoad()
+		{
+			var sd = new SecureDictionary();
+			sd.Contents["Greeting"] = "hello";
+			sd.Contents["RightNow"] = DateTime.Now.ToLongDateString();
+
+			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "secureDictionary.json");
+			JsonFile.Save(fileName, sd);
+
+			sd = JsonFile.Load<SecureDictionary>(fileName);
+			Assert.IsTrue(sd.Contents["Greeting"].Equals("hello"));
+			Assert.IsTrue(sd.Contents["RightNow"].Equals(DateTime.Now.ToLongDateString()));
 		}
 	}
 }
