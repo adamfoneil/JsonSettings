@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Encryption.cs" />
+    <Compile Include="DataProtection.cs" />
     <Compile Include="JsonFile.cs" />
     <Compile Include="JsonProtectAttribute.cs" />
     <Compile Include="JsonConfig.cs" />

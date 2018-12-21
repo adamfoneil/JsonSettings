@@ -32,7 +32,7 @@ namespace JsonSettings
 		internal void OnSerializingMethod(StreamingContext context)
 		{
 			string sourceString = string.Join(PairSeparator.ToString(), this.Contents.Select(kp => $"{kp.Key}{KeyValueSeparator}{kp.Value}"));
-			SourceString = Encryption.Encrypt(sourceString, Scope);
+			SourceString = DataProtection.Encrypt(sourceString, Scope);
 		}
 
 		[OnDeserialized]
@@ -40,7 +40,7 @@ namespace JsonSettings
 		{
 			try
 			{
-				string sourceString = Encryption.Decrypt(SourceString, Scope);
+				string sourceString = DataProtection.Decrypt(SourceString, Scope);
 
 				var keyPairs = sourceString.Split(PairSeparator);
 				foreach (var kp in keyPairs)

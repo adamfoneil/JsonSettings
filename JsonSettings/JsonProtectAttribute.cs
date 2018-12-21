@@ -56,7 +56,7 @@ namespace JsonSettings
 		public object GetValue(object target)
 		{
 			string clearText = PropertyInfo.GetValue(target) as string;
-			if (!string.IsNullOrEmpty(clearText)) return Encryption.Encrypt(clearText, Scope);
+			if (!string.IsNullOrEmpty(clearText)) return DataProtection.Encrypt(clearText, Scope);
 			return null;
 		}
 
@@ -68,7 +68,7 @@ namespace JsonSettings
 			string encryptedText = value as string;
 			if (!string.IsNullOrEmpty(encryptedText))
 			{
-				PropertyInfo.SetValue(target, Encryption.Decrypt(encryptedText, Scope));
+				PropertyInfo.SetValue(target, DataProtection.Decrypt(encryptedText, Scope));
 			}
 		}
 	}

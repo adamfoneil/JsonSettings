@@ -4,7 +4,7 @@ using System.Text;
 
 namespace JsonSettings
 {
-	public static class Encryption
+	public static class DataProtection
 	{
 		public static string Encrypt(string clearText, DataProtectionScope scope = DataProtectionScope.CurrentUser)
 		{
