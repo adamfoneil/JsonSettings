@@ -46,7 +46,10 @@ namespace JsonSettings
 				foreach (var kp in keyPairs)
 				{
 					string[] parts = kp.Split(KeyValueSeparator);
-					Contents.Add(parts[0].Trim(), parts[1].Trim());
+					if (parts.Length == 2)
+					{
+						Contents.Add(parts[0].Trim(), parts[1].Trim());
+					}					
 				}
 
 				SourceString = null;
