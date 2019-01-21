@@ -4,7 +4,9 @@
 
 This is sort of an update of my [AoOptions](https://github.com/adamosoftware/AoOptions) project, moving it from XML to Json, and removing the WinForms dependency. It was also important that I support a DPAPI encryption on properties, since the intended use case for this is to store sensitive things like database connection strings and other credentials. More info about DPAPI is [here](https://docs.microsoft.com/en-us/dotnet/standard/security/how-to-use-data-protection).
 
-Nuget package: **AoJsonSettings**
+Nuget package: **JsonSettings.Library**
+
+Note, as of 1/21/19, version 1.0.8 replaces the package **AoJsonSettings** in order to target .NET Standard 2.0.
 
 ## How to Use
 
