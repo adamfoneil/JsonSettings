@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.8</Version>
+    <Authors>Adam O'Neil</Authors>
+    <Description>Lightweight json-based app and user settings, with support for DPAPI encryption</Description>
+    <Copyright>Copyright (c) Adam O'Neil 2019</Copyright>
+    <PackageLicenseUrl>https://github.com/adamosoftware/JsonSettings/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/adamosoftware/JsonSettings</RepositoryUrl>
+    <PackageTags>json settings encryption dpapi</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
