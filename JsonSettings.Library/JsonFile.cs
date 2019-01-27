@@ -40,10 +40,15 @@ namespace JsonSettings
 			}
 		}
 
-		public static T Load<T>(string fileName, bool assumeFileExists = true)
+		public static T LoadOrCreate<T>(string fileName)
 		{
-			if (ReturnDefault(fileName, assumeFileExists)) return default(T);
+			if (!File.Exists(fileName)) return default(T);
 
+			return Load<T>(fileName);
+		}
+
+		public static T Load<T>(string fileName)
+		{
 			using (StreamReader reader = File.OpenText(fileName))
 			{
 				JsonSerializerSettings settings = new JsonSerializerSettings()
@@ -60,10 +65,15 @@ namespace JsonSettings
 			return default(T);
 		}
 
-		public async static Task<T> LoadAsync<T>(string fileName, bool assumeFileExists = true)
+		public async static Task<T> LoadOrCreateAsync<T>(string fileName)
 		{
-			if (ReturnDefault(fileName, assumeFileExists)) return default(T);
+			if (!File.Exists(fileName)) return default(T);
 
+			return await LoadAsync<T>(fileName);
+		}
+
+		public async static Task<T> LoadAsync<T>(string fileName)
+		{			
 			using (StreamReader reader = File.OpenText(fileName))
 			{
 				JsonSerializerSettings settings = new JsonSerializerSettings()
@@ -78,14 +88,6 @@ namespace JsonSettings
 				}
 			}
 			return default(T);
-		}
-
-		/// <summary>
-		/// Indicates whether a default instance of T should be used if requested file doesn't exist
-		/// </summary>
-		private static bool ReturnDefault(string fileName, bool assumeFileExists)
-		{
-			return !assumeFileExists && !File.Exists(fileName);
 		}
 	}
 }
