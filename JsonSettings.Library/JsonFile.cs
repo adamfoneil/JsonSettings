@@ -40,9 +40,9 @@ namespace JsonSettings
 			}
 		}
 
-		public static T LoadOrCreate<T>(string fileName)
+		public static T LoadOrCreate<T>(string fileName) where T : new()
 		{
-			if (!File.Exists(fileName)) return default(T);
+			if (!File.Exists(fileName)) return new T();
 
 			return Load<T>(fileName);
 		}
@@ -65,9 +65,9 @@ namespace JsonSettings
 			return default(T);
 		}
 
-		public async static Task<T> LoadOrCreateAsync<T>(string fileName)
+		public async static Task<T> LoadOrCreateAsync<T>(string fileName) where T : new()
 		{
-			if (!File.Exists(fileName)) return default(T);
+			if (!File.Exists(fileName)) return new T();
 
 			return await LoadAsync<T>(fileName);
 		}
