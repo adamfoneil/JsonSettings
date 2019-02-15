@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace JsonSettings
 {
 	public static class JsonFile
 	{
-		public static void Save<T>(string fileName, T @object)
+		public static void Save<T>(string fileName, T @object, Action<JsonSerializerSettings> updateSettings = null)
 		{
 			string folder = Path.GetDirectoryName(fileName);
 			if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
@@ -16,14 +17,17 @@ namespace JsonSettings
 				JsonSerializerSettings settings = new JsonSerializerSettings()
 				{
 					Formatting = Formatting.Indented,
-					ContractResolver = new DataProtectionResolver()
+					ContractResolver = new DataProtectionResolver(),					
 				};
+
+				updateSettings?.Invoke(settings);
+
 				string json = JsonConvert.SerializeObject(@object, settings);
 				writer.Write(json);
 			}
 		}
 
-		public async static Task SaveAsync<T>(string fileName, T @object)
+		public async static Task SaveAsync<T>(string fileName, T @object, Action<JsonSerializerSettings> updateSettings = null)
 		{
 			string folder = Path.GetDirectoryName(fileName);
 			if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
@@ -35,6 +39,9 @@ namespace JsonSettings
 					Formatting = Formatting.Indented,
 					ContractResolver = new DataProtectionResolver()
 				};
+
+				updateSettings?.Invoke(settings);
+
 				string json = JsonConvert.SerializeObject(@object, settings);
 				await writer.WriteAsync(json);
 			}
