@@ -17,7 +17,7 @@ namespace JsonSettings
 				JsonSerializerSettings settings = new JsonSerializerSettings()
 				{
 					Formatting = Formatting.Indented,
-					ContractResolver = new DataProtectionResolver(),					
+					ContractResolver = new DataProtectionResolver()
 				};
 
 				updateSettings?.Invoke(settings);
@@ -80,7 +80,7 @@ namespace JsonSettings
 		}
 
 		public async static Task<T> LoadAsync<T>(string fileName)
-		{			
+		{
 			using (StreamReader reader = File.OpenText(fileName))
 			{
 				JsonSerializerSettings settings = new JsonSerializerSettings()
