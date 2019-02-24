@@ -54,8 +54,10 @@ namespace JsonSettings
 			return Load<T>(fileName);
 		}
 
-		public static T Load<T>(string fileName)
+		public static T Load<T>(string fileName, Func<T> ifNotExists = null)
 		{
+			if (!File.Exists(fileName) && ifNotExists != null) return ifNotExists.Invoke();
+
 			using (StreamReader reader = File.OpenText(fileName))
 			{
 				JsonSerializerSettings settings = new JsonSerializerSettings()
@@ -79,8 +81,10 @@ namespace JsonSettings
 			return await LoadAsync<T>(fileName);
 		}
 
-		public async static Task<T> LoadAsync<T>(string fileName)
+		public async static Task<T> LoadAsync<T>(string fileName, Func<T> ifNotExists = null)
 		{
+			if (!File.Exists(fileName) && ifNotExists != null) return ifNotExists.Invoke();
+
 			using (StreamReader reader = File.OpenText(fileName))
 			{
 				JsonSerializerSettings settings = new JsonSerializerSettings()
