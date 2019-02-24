@@ -63,9 +63,9 @@ namespace JsonSettings
 			return result;
 		}
 
-		public void Save()
+		public void Save(Action<JsonSerializerSettings> updateSettings = null)
 		{
-			JsonFile.Save(GetFullPath(), this);
+			JsonFile.Save(GetFullPath(), this, updateSettings);
 		}
 	}
 }

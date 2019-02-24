@@ -1,4 +1,5 @@
 ﻿using JsonSettings;
+using JsonSettings.Test.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -82,6 +83,13 @@ namespace Testing
 			sd = JsonFile.Load<SecureDictionary>(fileName);
 			Assert.IsTrue(sd.Contents["Greeting"].Equals("hello"));
 			Assert.IsTrue(sd.Contents["RightNow"].Equals(DateTime.Now.ToLongDateString()));
+		}
+
+		[TestMethod]
+		public void MissingFileShouldCreate()
+		{
+			var sample = JsonFile.LoadOrCreate<SampleClass>(@"c:\non-existent-path\whatever.json");
+			Assert.IsTrue(sample != null);
 		}
 	}
 }
