@@ -36,7 +36,7 @@ namespace JsonSettings
 
 		public static T Load<T>() where T : JsonSettingsBase, new()
 		{
-			T result = new T();
+            T result = null;
 
 			string fileName = result.GetFullPath();			
 			if (File.Exists(fileName))
@@ -44,7 +44,7 @@ namespace JsonSettings
 				result = JsonFile.Load<T>(fileName);
 			}
 
-			return result;
+			return result ?? new T();
 		}
 
 		public string GetFullPath()
