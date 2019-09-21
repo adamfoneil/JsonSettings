@@ -10,9 +10,9 @@ Note, as of 1/21/19, version 1.0.8 replaces the package **AoJsonSettings** in or
 
 ## How to Use
 
-1. Create a class for your application settings based on [JsonSettingsBase](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings/JsonSettingsBase.cs). Override the `Scope`, `Filename`, `CompanyName` and `ProductName` properties. These allow the settings class to derive a path to the saved settings via the [GetFullPath](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings/JsonSettingsBase.cs#L62) method.
+1. Create a class for your application settings based on [JsonSettingsBase](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings.Library/JsonSettingsBase.cs). Override the `Scope`, `Filename`, `CompanyName` and `ProductName` properties. These allow the settings class to derive a path to the saved settings via the [GetFullPath](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings.Library/JsonSettingsBase.cs#L50) method.
 
-2. If you need to encrypt a string property, add the [[JsonProtect]](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings/JsonProtectAttribute.cs) attribute to the property. Props to this [SO answer](https://stackoverflow.com/a/29240043/2023653) from [Brian Rogers](https://stackoverflow.com/users/10263/brian-rogers) on implementing the custom attribute that does this.
+2. If you need to encrypt a string property, add the [[JsonProtect]](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings.Library/JsonProtectAttribute.cs) attribute to the property. Props to this [SO answer](https://stackoverflow.com/a/29240043/2023653) from [Brian Rogers](https://stackoverflow.com/users/10263/brian-rogers) on implementing the custom attribute that does this.
 
 2. Instantiate your settings class with `JsonSettingsBase.Load<T>` where `T` is your settings type.
 
