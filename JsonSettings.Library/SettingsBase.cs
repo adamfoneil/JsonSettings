@@ -14,10 +14,10 @@ namespace JsonSettings.Library
         public static T Load<T>() where T : SettingsBase, new()
         {
             T result = new T();
-
+            
             if (File.Exists(result.Filename))
             {
-                result = JsonFile.Load<T>(result.Filename);
+                return JsonFile.Load<T>(result.Filename) ?? result;
             }
 
             return result;
@@ -25,10 +25,7 @@ namespace JsonSettings.Library
 
         public void Save(Action<JsonSerializerSettings> updateSettings = null)
         {
-            string path = Path.GetDirectoryName(Filename);
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
-            JsonFile.Save(Filename, updateSettings);
+            JsonFile.Save(Filename, this, updateSettings);
         }
     }
 }

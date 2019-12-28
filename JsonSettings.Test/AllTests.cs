@@ -1,4 +1,5 @@
 ﻿using JsonSettings;
+using JsonSettings.Library;
 using JsonSettings.Test.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -11,6 +12,25 @@ namespace Testing
     [TestClass]
     public class AllTests
     {
+        [TestMethod]
+        public void CreateAppSettings2()
+        {
+            var settings = SettingsBase.Load<AppSettings2>();
+            Assert.IsTrue(settings != null);
+        }
+
+        [TestMethod]
+        public void SetAppSettings2()
+        {
+            var settings = SettingsBase.Load<AppSettings2>();
+            settings.Greeting = "whatever";
+            settings.Save();
+
+            settings = SettingsBase.Load<AppSettings2>();
+            Assert.IsTrue(settings.Greeting.Equals("whatever"));
+        }
+
+
         [TestMethod]
         public void CreateAndSaveAppScope()
         {

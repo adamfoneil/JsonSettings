@@ -66,7 +66,7 @@ namespace JsonSettings
                 };
 
                 string json = reader.ReadToEnd();
-                if (!json.Equals(string.Empty))
+                if (!string.IsNullOrEmpty(json) && !json.Equals("null"))
                 {
                     return JsonConvert.DeserializeObject<T>(json, settings);
                 }
