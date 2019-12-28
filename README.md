@@ -10,31 +10,28 @@ Note, as of 1/21/19, version 1.0.8 replaces the package **AoJsonSettings** in or
 
 ## How to Use
 
-1. Create a class for your application settings based on [JsonSettingsBase](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings.Library/JsonSettingsBase.cs). Override the `Scope`, `Filename`, `CompanyName` and `ProductName` properties. These allow the settings class to derive a path to the saved settings via the [GetFullPath](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings.Library/JsonSettingsBase.cs#L50) method.
+1. Create a class for your app settings based on [SettingsBase](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings.Library/SettingsBase.cs) abstract class and implement the [Filename](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings.Library/SettingsBase.cs#L12) property.
 
-2. If you need to encrypt a string property, add the [[JsonProtect]](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings.Library/JsonProtectAttribute.cs) attribute to the property. Props to this [SO answer](https://stackoverflow.com/a/29240043/2023653) from [Brian Rogers](https://stackoverflow.com/users/10263/brian-rogers) on implementing the custom attribute that does this.
+2. If you need to encrypt a string property, add the [[JsonProtect]](https://github.com/adamosoftware/JsonSettings/blob/master/JsonSettings.Library/JsonProtectAttribute.cs) attribute to the property. Props to this [SO answer](https://stackoverflow.com/a/29240043/2023653) from [Brian Rogers](https://stackoverflow.com/users/10263/brian-rogers) on implementing the custom attribute that does this. 
 
-2. Instantiate your settings class with `JsonSettingsBase.Load<T>` where `T` is your settings type.
+3. Instantiate your settings class with `JsonSettingsBase.Load<T>` where `T` is your settings type.
 
-3. Use the `Save` method to persist any modified settings to disk.
+4. Use the `Save` method to persist any modified settings to disk.
 
 ## Examples
 
 ```
-var settings = JsonSettingsBase.Load<MySettings>();
+var settings = SettingsBase.Load<MySettings>();
 
 // when app closing or on some other event:
 settings.Save();
 ```
 Encrypted property example:
 ```
-public class AppSettings : JsonSettingsBase
+public class AppSettings : SettingsBase
 {
-    public override string Filename => "AppSettings.json";
-    public override Scope Scope => Scope.Application;
-    public override string CompanyName => "Adam O'Neil Software";
-    public override string ProductName => "My Sample App";
-
+    public override string Filename => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "AppSettings.json");
+    
     public string Greeting { get; set; } = "hello";
 
     [JsonProtect(DataProtectionScope.CurrentUser)]
