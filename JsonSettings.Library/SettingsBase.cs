@@ -25,6 +25,9 @@ namespace JsonSettings.Library
 
         public void Save(Action<JsonSerializerSettings> updateSettings = null)
         {
+            string path = Path.GetDirectoryName(Filename);
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
             JsonFile.Save(Filename, updateSettings);
         }
     }
