@@ -2,20 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.15</Version>
+    <Version>1.0.16</Version>
     <Authors>Adam O'Neil</Authors>
     <Description>Lightweight json-based app and user settings, with support for DPAPI encryption</Description>
     <Copyright>Copyright (c) Adam O'Neil 2019</Copyright>
-    <PackageLicenseUrl>https://github.com/adamosoftware/JsonSettings/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <RepositoryUrl>https://github.com/adamosoftware/JsonSettings</RepositoryUrl>
     <PackageTags>json settings encryption dpapi</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>new make returned settings object is not null (due to serilization oddities that sometimes happen)</PackageReleaseNotes>
+    <PackageReleaseNotes>added SettingsBase abstract class for easier app settings approach (just one abstract property to implement rather than four)</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
