@@ -11,6 +11,14 @@ namespace JsonSettings.Library
         [JsonIgnore]
         public abstract string Filename { get; }
 
+        protected static string BuildPath(Environment.SpecialFolder folder, params string[] paths)
+        {
+            List<string> parts = new List<string>();
+            parts.Add(Environment.GetFolderPath(folder));
+            parts.AddRange(paths);
+            return Path.Combine(parts.ToArray());
+        }
+
         public static T Load<T>() where T : SettingsBase, new()
         {
             T result = new T();
