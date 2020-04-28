@@ -26,7 +26,7 @@ var settings = SettingsBase.Load<MySettings>();
 settings.Save();
 ```
 Encrypted property example:
-```
+```csharp
 public class AppSettings : SettingsBase
 {
     public override string Filename => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "AppSettings.json");
