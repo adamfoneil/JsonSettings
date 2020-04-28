@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/7rtpqxwoasjes1id?svg=true)](https://ci.appveyor.com/project/adamosoftware/jsonsettings) |
+[![Build status](https://ci.appveyor.com/api/projects/status/7rtpqxwoasjes1id?svg=true)](https://ci.appveyor.com/project/adamosoftware/jsonsettings)
 [![Nuget](https://img.shields.io/nuget/v/JsonSettings.Library)](https://www.nuget.org/packages/JsonSettings.Library/)
 
 This is sort of an update of my [AoOptions](https://github.com/adamosoftware/AoOptions) project, moving it from XML to Json, and removing the WinForms dependency. It was also important that I support a DPAPI encryption on properties, since the intended use case for this is to store sensitive things like database connection strings and other credentials. More info about DPAPI is [here](https://docs.microsoft.com/en-us/dotnet/standard/security/how-to-use-data-protection).
@@ -19,7 +19,7 @@ Note, as of 1/21/19, version 1.0.8 replaces the package **AoJsonSettings** in or
 
 ## Examples
 
-```
+```csharp
 var settings = SettingsBase.Load<MySettings>();
 
 // when app closing or on some other event:
