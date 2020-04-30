@@ -19,14 +19,18 @@ namespace JsonSettings.Library
             return Path.Combine(parts.ToArray());
         }
 
+        protected virtual void Initialize() { }
+
         public static T Load<T>() where T : SettingsBase, new()
         {
             T result = new T();
             
             if (File.Exists(result.Filename))
             {
-                return JsonFile.Load<T>(result.Filename) ?? result;
+                result = JsonFile.Load<T>(result.Filename) ?? result;
             }
+
+            result.Initialize();
 
             return result;
         }
