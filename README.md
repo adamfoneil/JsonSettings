@@ -29,7 +29,7 @@ Encrypted property example:
 ```csharp
 public class AppSettings : SettingsBase
 {
-    public override string Filename => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "AppSettings.json");
+    public override string Filename => BuildPath(Environment.SpecialFolder.LocalApplicationData, "AppSettings.json");
     
     public string Greeting { get; set; } = "hello";
 
