@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace JsonSettings.Library
 {
@@ -13,8 +12,10 @@ namespace JsonSettings.Library
 
         protected static string BuildPath(Environment.SpecialFolder folder, params string[] paths)
         {
-            List<string> parts = new List<string>();
-            parts.Add(Environment.GetFolderPath(folder));
+            List<string> parts = new List<string>
+            {
+                Environment.GetFolderPath(folder)
+            };
             parts.AddRange(paths);
             return Path.Combine(parts.ToArray());
         }
@@ -24,7 +25,7 @@ namespace JsonSettings.Library
         public static T Load<T>() where T : SettingsBase, new()
         {
             T result = new T();
-            
+
             if (File.Exists(result.Filename))
             {
                 result = JsonFile.Load<T>(result.Filename) ?? result;
