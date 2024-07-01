@@ -30,16 +30,23 @@ namespace JsonSettings
             foreach (JsonProperty prop in props.Where(p => p.PropertyType.Equals(typeof(string))))
             {
                 PropertyInfo pi = type.GetProperty(prop.UnderlyingName);
-
-                // Obtain any member that matches case sensitive. Will only return 1 match anyway.
-                MemberInfo fi = type.GetMember(prop.UnderlyingName).FirstOrDefault();
-
-                if (fi.GetCustomAttribute<JsonIgnoreAttribute>() != null)
+                // Skip if member is not a property.
+                if (pi is null)
+                {
                     continue;
+                }
 
-                var attr = fi.GetCustomAttribute<JsonProtectAttribute>();
+                // Skip if JsonIgnore.
+                if (pi.GetCustomAttribute<JsonIgnoreAttribute>() != null)
+                {
+                    continue;
+                }
+
+                var attr = pi.GetCustomAttribute<JsonProtectAttribute>();
                 if (attr != null)
+                {
                     prop.ValueProvider = new ProtectedDataValueProvider(pi, attr.Scope);
+                }
             }
 
             return props;
