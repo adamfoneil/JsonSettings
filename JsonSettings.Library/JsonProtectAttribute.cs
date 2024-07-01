@@ -62,12 +62,23 @@ namespace JsonSettings
         /// <summary>
         /// Called during serialization to encrypt a property value
         /// </summary>
+        /// <param name="target">The target to set the value on.</param>
+        /// <param name="value">The value to set on the target.</param>
+        /// <exception cref="FormatException">Unable to decrypt {PropertyInfo.Name}, from {PropertyInfo.DeclaringType.Name}. {ex.Message}</exception>
         public void SetValue(object target, object value)
         {
             string encryptedText = value as string;
             if (!string.IsNullOrEmpty(encryptedText))
             {
-                PropertyInfo.SetValue(target, DataProtection.Decrypt(encryptedText, Scope));
+                string decryptedText = string.Empty;
+
+                try {
+                    DataProtection.Decrypt(encryptedText, Scope);
+                } catch (FormatException ex) {
+                    throw new FormatException($"Unable to decrypt {PropertyInfo.Name}, from {PropertyInfo.DeclaringType.Name}. {ex.Message}", ex);
+                }
+
+                PropertyInfo.SetValue(target, decryptedText);
             }
         }
     }
