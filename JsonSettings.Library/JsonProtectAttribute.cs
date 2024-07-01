@@ -30,8 +30,12 @@ namespace JsonSettings
             foreach (JsonProperty prop in props.Where(p => p.PropertyType.Equals(typeof(string))))
             {
                 PropertyInfo pi = type.GetProperty(prop.UnderlyingName);
-                var attr = pi.GetCustomAttribute<JsonProtectAttribute>();
-                if (attr != null) prop.ValueProvider = new ProtectedDataValueProvider(pi, attr.Scope);
+
+                // Obtain any member that matches case sensitive. Will only return 1 match anyway.
+                MemberInfo fi = type.GetMember(prop.UnderlyingName).FirstOrDefault();
+                var attr = fi.GetCustomAttribute<JsonProtectAttribute>();
+                if (attr != null)
+                    prop.ValueProvider = new ProtectedDataValueProvider(pi, attr.Scope);
             }
 
             return props;
