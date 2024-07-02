@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.1.0</Version>
+    <TargetFramework>net8.0</TargetFramework>
+    <Version>1.2.0</Version>
     <Authors>Adam O'Neil</Authors>
     <Description>Lightweight json-based app and user settings, with support for DPAPI encryption</Description>
     <Copyright>Copyright (c) Adam O'Neil 2019</Copyright>
@@ -10,14 +10,14 @@
     <RepositoryUrl>https://github.com/adamosoftware/JsonSettings</RepositoryUrl>
     <PackageTags>json settings encryption dpapi</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Updated Json.NET package, Test project now targets .NET7</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated Json.NET package, Test project now targets .NET8</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/adamosoftware/JsonSettings</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
