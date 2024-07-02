@@ -73,7 +73,7 @@ namespace JsonSettings
                 string decryptedText = string.Empty;
 
                 try {
-                    DataProtection.Decrypt(encryptedText, Scope);
+                    decryptedText = DataProtection.Decrypt(encryptedText, Scope);
                 } catch (FormatException ex) {
                     throw new FormatException($"Unable to decrypt {PropertyInfo.Name}, from {PropertyInfo.DeclaringType.Name}. {ex.Message}", ex);
                 }
