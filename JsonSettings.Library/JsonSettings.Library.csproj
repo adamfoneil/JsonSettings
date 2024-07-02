@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Version>1.2.0</Version>
     <Authors>Adam O'Neil</Authors>
     <Description>Lightweight json-based app and user settings, with support for DPAPI encryption</Description>
