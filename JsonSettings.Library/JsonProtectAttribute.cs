@@ -30,8 +30,23 @@ namespace JsonSettings
             foreach (JsonProperty prop in props.Where(p => p.PropertyType.Equals(typeof(string))))
             {
                 PropertyInfo pi = type.GetProperty(prop.UnderlyingName);
+                // Skip if member is not a property.
+                if (pi is null)
+                {
+                    continue;
+                }
+
+                // Skip if JsonIgnore.
+                if (pi.GetCustomAttribute<JsonIgnoreAttribute>() != null)
+                {
+                    continue;
+                }
+
                 var attr = pi.GetCustomAttribute<JsonProtectAttribute>();
-                if (attr != null) prop.ValueProvider = new ProtectedDataValueProvider(pi, attr.Scope);
+                if (attr != null)
+                {
+                    prop.ValueProvider = new ProtectedDataValueProvider(pi, attr.Scope);
+                }
             }
 
             return props;
