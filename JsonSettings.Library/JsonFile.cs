@@ -7,7 +7,7 @@ namespace JsonSettings
 {
     public static class JsonFile
     {
-        public static void Save<T>(string fileName, T @object, Action<JsonSerializerSettings> updateSettings = null)
+        public static void Save<T>(string fileName, T @object, Action<JsonSerializerSettings> updateSettings = null, EventHandler<Newtonsoft.Json.Serialization.ErrorEventArgs> error = null)
         {
             string folder = Path.GetDirectoryName(fileName);
             if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
@@ -16,6 +16,7 @@ namespace JsonSettings
             {
                 JsonSerializerSettings settings = new JsonSerializerSettings()
                 {
+                    Error = error,
                     Formatting = Formatting.Indented,
                     ContractResolver = new DataProtectionResolver()
                 };
@@ -27,7 +28,7 @@ namespace JsonSettings
             }
         }
 
-        public async static Task SaveAsync<T>(string fileName, T @object, Action<JsonSerializerSettings> updateSettings = null)
+        public async static Task SaveAsync<T>(string fileName, T @object, Action<JsonSerializerSettings> updateSettings = null, EventHandler<Newtonsoft.Json.Serialization.ErrorEventArgs> error = null)
         {
             string folder = Path.GetDirectoryName(fileName);
             if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
@@ -36,6 +37,7 @@ namespace JsonSettings
             {
                 JsonSerializerSettings settings = new JsonSerializerSettings()
                 {
+                    Error = error,
                     Formatting = Formatting.Indented,
                     ContractResolver = new DataProtectionResolver()
                 };
@@ -54,7 +56,7 @@ namespace JsonSettings
             return Load<T>(fileName);
         }
 
-        public static T Load<T>(string fileName, Func<T> ifNotExists = null)
+        public static T Load<T>(string fileName, Func<T> ifNotExists = null, EventHandler<Newtonsoft.Json.Serialization.ErrorEventArgs> error = null)
         {
             if (!File.Exists(fileName) && ifNotExists != null) return ifNotExists.Invoke();
 
@@ -62,6 +64,7 @@ namespace JsonSettings
             {
                 JsonSerializerSettings settings = new JsonSerializerSettings()
                 {
+                    Error = error,
                     ContractResolver = new DataProtectionResolver()
                 };
 
@@ -81,7 +84,7 @@ namespace JsonSettings
             return await LoadAsync<T>(fileName);
         }
 
-        public async static Task<T> LoadAsync<T>(string fileName, Func<T> ifNotExists = null)
+        public async static Task<T> LoadAsync<T>(string fileName, Func<T> ifNotExists = null, EventHandler<Newtonsoft.Json.Serialization.ErrorEventArgs> error = null)
         {
             if (!File.Exists(fileName) && ifNotExists != null) return ifNotExists.Invoke();
 
@@ -89,6 +92,7 @@ namespace JsonSettings
             {
                 JsonSerializerSettings settings = new JsonSerializerSettings()
                 {
+                    Error = error,
                     ContractResolver = new DataProtectionResolver()
                 };
 

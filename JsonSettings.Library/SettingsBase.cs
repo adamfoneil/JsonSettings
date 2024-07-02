@@ -22,13 +22,13 @@ namespace JsonSettings.Library
 
         protected virtual void Initialize() { }
 
-        public static T Load<T>() where T : SettingsBase, new()
+        public static T Load<T>(EventHandler<Newtonsoft.Json.Serialization.ErrorEventArgs> error = null) where T : SettingsBase, new()
         {
             T result = new T();
 
             if (File.Exists(result.Filename))
             {
-                result = JsonFile.Load<T>(result.Filename) ?? result;
+                result = JsonFile.Load<T>(result.Filename, error: error) ?? result;
             }
 
             result.Initialize();
@@ -36,9 +36,9 @@ namespace JsonSettings.Library
             return result;
         }
 
-        public void Save(Action<JsonSerializerSettings> updateSettings = null)
+        public void Save(Action<JsonSerializerSettings> updateSettings = null, EventHandler<Newtonsoft.Json.Serialization.ErrorEventArgs> error = null)
         {
-            JsonFile.Save(Filename, this, updateSettings);
+            JsonFile.Save(Filename, this, updateSettings, error);
         }
     }
 }
