@@ -3,7 +3,6 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Security.Cryptography;
 
 namespace JsonSettings
@@ -27,25 +26,13 @@ namespace JsonSettings
         {
             var props = base.CreateProperties(type, memberSerialization);
 
-            foreach (JsonProperty prop in props.Where(p => p.PropertyType.Equals(typeof(string))))
+            foreach (JsonProperty prop in props.Where(p => !p.Ignored && p.PropertyType.Equals(typeof(string))))
             {
-                PropertyInfo pi = type.GetProperty(prop.UnderlyingName);
-                // Skip if member is not a property.
-                if (pi is null)
+                if (prop.AttributeProvider
+                    .GetAttributes(typeof(JsonProtectAttribute), false)
+                    .FirstOrDefault() is JsonProtectAttribute attr)
                 {
-                    continue;
-                }
-
-                // Skip if JsonIgnore.
-                if (pi.GetCustomAttribute<JsonIgnoreAttribute>() != null)
-                {
-                    continue;
-                }
-
-                var attr = pi.GetCustomAttribute<JsonProtectAttribute>();
-                if (attr != null)
-                {
-                    prop.ValueProvider = new ProtectedDataValueProvider(pi, attr.Scope);
+                    prop.ValueProvider = new ProtectedDataValueProvider(prop.ValueProvider, attr.Scope, prop.UnderlyingName, prop.DeclaringType);
                 }
             }
 
@@ -55,21 +42,25 @@ namespace JsonSettings
 
     public class ProtectedDataValueProvider : IValueProvider
     {
-        public ProtectedDataValueProvider(PropertyInfo propertyInfo, DataProtectionScope scope)
+        public ProtectedDataValueProvider(IValueProvider valueProvider, DataProtectionScope scope, string underlyingName, Type declaringType)
         {
-            PropertyInfo = propertyInfo;
+            UnderlyingValueProvider = valueProvider;
             Scope = scope;
+            UnderlyingName = underlyingName;
+            DeclaringType = declaringType;
         }
 
-        public PropertyInfo PropertyInfo { get; private set; }
-        public DataProtectionScope Scope { get; private set; }
+        public IValueProvider UnderlyingValueProvider { get; }
+        public DataProtectionScope Scope { get; }
+        public string UnderlyingName { get; }
+        public Type DeclaringType { get; }
 
         /// <summary>
         /// Called during deserialization to decrypt a property value
         /// </summary>		
         public object GetValue(object target)
         {
-            string clearText = PropertyInfo.GetValue(target) as string;
+            string clearText = UnderlyingValueProvider.GetValue(target) as string;
             if (!string.IsNullOrEmpty(clearText)) return DataProtection.Encrypt(clearText, Scope);
             return null;
         }
@@ -79,7 +70,7 @@ namespace JsonSettings
         /// </summary>
         /// <param name="target">The target to set the value on.</param>
         /// <param name="value">The value to set on the target.</param>
-        /// <exception cref="FormatException">Unable to decrypt {PropertyInfo.Name}, from {PropertyInfo.DeclaringType.Name}. {ex.Message}</exception>
+        /// <exception cref="FormatException">Unable to decrypt {underlyingName}, from {declaringType.Name}. {ex.Message}</exception>
         public void SetValue(object target, object value)
         {
             string encryptedText = value as string;
@@ -87,13 +78,16 @@ namespace JsonSettings
             {
                 string decryptedText = string.Empty;
 
-                try {
+                try
+                {
                     decryptedText = DataProtection.Decrypt(encryptedText, Scope);
-                } catch (FormatException ex) {
-                    throw new FormatException($"Unable to decrypt {PropertyInfo.Name}, from {PropertyInfo.DeclaringType.Name}. {ex.Message}", ex);
+                }
+                catch (FormatException ex)
+                {
+                    throw new FormatException($"Unable to decrypt {UnderlyingName}, from {DeclaringType.Name}. {ex.Message}", ex);
                 }
 
-                PropertyInfo.SetValue(target, decryptedText);
+                UnderlyingValueProvider.SetValue(target, decryptedText);
             }
         }
     }
